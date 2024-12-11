@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './compents/sidebar';
 import TableContact from './compents/tablecontact';
@@ -6,13 +6,15 @@ import DealsComponent from './compents/tabledeals';
 import Navbar from './compents/navbar';
 import LinkContactToDealForm from './compents/linkdealwithcontact';
 import Login from './compents/login';
+import './index.css';
 
 const App = () => {
   return (
     <Router>
       <Routes>
         {/* Login Route */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        
 
         {/* Protected Routes */}
         <Route

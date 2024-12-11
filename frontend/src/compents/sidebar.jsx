@@ -1,66 +1,70 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Drawer, List, ListItem, ListItemText, Button, Typography } from '@mui/material';
+import { logoutUser } from '../services/logout'; // Import the logout service
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:8000/hubspot/api/logout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const isLoggedOut = await logoutUser(); // Call the logout service
 
-      if (response.ok) {
+      if (isLoggedOut) {
         alert('Logout successful!');
-        window.location.href = '/login'; // Redirect to the homepage or login page
-      } else {
-        alert('Logout failed.');
+        navigate('/'); // Redirect to the homepage or login page
       }
     } catch (error) {
-      console.error('Logout error:', error);
-      alert('An error occurred during logout.');
+      alert(error.message);
     }
   };
 
   return (
-    <div style={{ width: '200px', background: '#333', color: '#fff', height: '100vh', padding: '10px' }}>
-      <h2>Dashboard</h2>
-      <nav>
-        <ul style={{ listStyleType: 'none', padding: '0' }}>
-          <li style={{ marginBottom: '10px' }}>
-            <Link to="/contacts" style={{ color: '#fff', textDecoration: 'none' }}>
-              Contacts
-            </Link>
-          </li>
-          <li style={{ marginBottom: '10px' }}>
-            <Link to="/deals" style={{ color: '#fff', textDecoration: 'none' }}>
-              Deals
-            </Link>
-          </li>
-          <li style={{ marginBottom: '10px' }}>
-            <Link to="/link-deal-contact" style={{ color: '#fff', textDecoration: 'none' }}>
-              Link Contact with Deals
-            </Link>
-          </li>
-          <li>
-            <button
-              onClick={handleLogout}
-              style={{
-                color: '#fff',
-                textDecoration: 'none',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '0',
-              }}
-            >
-              Logout
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <Drawer
+      sx={{
+        width: 250,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: 250,
+          backgroundColor: '#333',
+          color: '#fff',
+        },
+      }}
+      variant="permanent"
+      anchor="left"
+    >
+      <div style={{ padding: '20px' }}>
+        <Typography variant="h6" color="white" gutterBottom>
+          Sidebar
+        </Typography>
+      </div>
+
+      <List>
+        <ListItem button component={Link} to="/contacts" style={{ color: 'white' }}>
+          <ListItemText primary="Contacts" />
+        </ListItem>
+        <ListItem button component={Link} to="/deals" style={{ color: 'white' }}>
+          <ListItemText primary="Deals" />
+        </ListItem>
+        <ListItem button component={Link} to="/link-deal-contact" style={{ color: 'white' }}>
+          <ListItemText primary="Link Contact with Deals" />
+        </ListItem>
+        <ListItem>
+          <Button
+            onClick={handleLogout}
+            fullWidth
+            variant="text"
+            color="inherit"
+            sx={{
+              textTransform: 'none',
+              justifyContent: 'flex-start',
+            }}
+          >
+            Logout
+          </Button>
+        </ListItem>
+      </List>
+    </Drawer>
   );
 };
 

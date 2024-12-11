@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextField, Button, Typography, Paper, Box } from '@mui/material';
 
 const LinkContactToDealForm = () => {
   const [contactId, setContactId] = useState('');
@@ -37,32 +38,51 @@ const LinkContactToDealForm = () => {
   };
 
   return (
-    <div>
-      <h2>Link Contact to Deal</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Contact ID:</label>
-          <input
-            type="text"
+    <Box sx={{ padding: 3 }}>
+      <Paper sx={{ padding: 3 }}>
+        <Typography variant="h5" gutterBottom>
+          Link Contact to Deal
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Contact ID"
+            variant="outlined"
+            fullWidth
             value={contactId}
             onChange={(e) => setContactId(e.target.value)}
             required
+            sx={{ marginBottom: 2 }}
           />
-        </div>
-        <div>
-          <label>Deal ID:</label>
-          <input
-            type="text"
+          <TextField
+            label="Deal ID"
+            variant="outlined"
+            fullWidth
             value={dealId}
             onChange={(e) => setDealId(e.target.value)}
             required
+            sx={{ marginBottom: 2 }}
           />
-        </div>
-        <button type="submit">Link</button>
-      </form>
-      {message && <div className="success-message">{message}</div>}
-      {error && <div className="error-message">{error}</div>}
-    </div>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            fullWidth
+          >
+            Link
+          </Button>
+        </form>
+        {message && (
+          <Typography variant="body1" color="success.main" sx={{ marginTop: 2 }}>
+            {message}
+          </Typography>
+        )}
+        {error && (
+          <Typography variant="body1" color="error.main" sx={{ marginTop: 2 }}>
+            {error}
+          </Typography>
+        )}
+      </Paper>
+    </Box>
   );
 };
 

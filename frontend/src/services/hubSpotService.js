@@ -1,4 +1,5 @@
-const CONTACTS_API_URL = 'http://localhost:8000/hubspot/contacts'; // Replace with your Django API URL
+const CONTACTS_API_URL = 'http://localhost:8000/hubspot/contacts'; // 
+
 
 export const getContacts = async () => {
   try {
@@ -17,7 +18,7 @@ export const getContacts = async () => {
 };
 
 // Service for fetching deals
-const DEALS_API_URL = 'http://localhost:8000/hubspot/deals'; // Replace with your Django API URL
+const DEALS_API_URL = 'http://localhost:8000/hubspot/deals'; 
 
 export const getDeals = async () => {
   try {
